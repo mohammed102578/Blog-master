@@ -11,7 +11,7 @@ class Admincontroller extends Controller
 
 
 
-    // start get tags
+    // start get Tags
     public function getTag(){
 
         return Tag::orderBy('id', 'desc')->get();
