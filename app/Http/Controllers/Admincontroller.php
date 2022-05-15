@@ -24,7 +24,10 @@ class Admincontroller extends Controller
     public function addTag(Request $request){
     //validate
     $this->validate($request,[
-        'tagName'=>'required'
+        'tagName'=>'required',
+        'tagName'=>'min:3',
+        'tagName'=>'max:10',
+
     ]);
 
     return Tag::create([
@@ -38,7 +41,9 @@ public function editTag(Request $request){
     //validate
     $this->validate($request,[
         'tagName'=>'required',
-        'id'=>'required'
+        'id'=>'required',
+        'tagName'=>'min:3',
+        'tagName'=>'max:10',
     ]);
 
    Tag::where('id',$request->id)->update(['tagName'=>$request->tagName]);
@@ -112,6 +117,8 @@ public function editTag(Request $request){
         //validate
         $this->validate($request,[
             'categoryName'=>'required',
+            'categoryName'=>'min:2',
+            'categoryName'=>'max:10',
             'iconImage'=>'required'
         ]);
     
@@ -148,6 +155,8 @@ public function editCategory(Request $request){
     //validate
     $this->validate($request,[
         'categoryName'=>'required',
+        'categoryName'=>'min:2',
+        'categoryName'=>'max:10',
         'iconImage'=>'required',
         'id'=>'required'
     ]);
