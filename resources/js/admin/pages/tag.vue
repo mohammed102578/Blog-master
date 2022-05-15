@@ -25,6 +25,7 @@
 								<td class="_table_name">{{tag.tagName}}</td>
 								<td>{{tag.created_at}}</td>
 								<td>
+									<p>mohammed</p>
 									<Button type="info" size="small" @click="showEditModal(tag, i)" >Edit</Button>
 									<Button type="error" size="small" @click="showDeletingModal(tag, i)"  :loading="tag.isDeleting" >Delete</Button>
 									
@@ -69,20 +70,8 @@
 
 				</Modal>
 				<!-- delete alert modal -->
-				<Modal v-model="showDeleteModal" width="360">
-					<p slot="header" style="color:#f60;text-align:center">
-						<Icon type="ios-information-circle"></Icon>
-						<span>Delete confirmation</span>
-					</p>
-					<div style="text-align:center">
-						<p>Are you sure you want to delete tag?.</p>
-						
-					</div>
-					<div slot="footer">
-						<Button type="error" size="large" long :loading="isDeleting" :disabled="isDeleting" @click="deleteTag" >Delete</Button>
-					</div>
-				</Modal> 
-				<!-- <deleteModal></deleteModal> -->
+				
+			<deleteModal></deleteModal>
 
 			</div>
 		</div>
@@ -91,8 +80,8 @@
 
 
 <script>
-// import deleteModal from '../components/deleteModal.vue'
-// import { mapGetters } from 'vuex'
+ import deleteModal from '../components/deleteModal.vue'
+ import { mapGetters } from 'vuex'
 export default {
 	data(){
 		return {
@@ -199,19 +188,19 @@ export default {
 			this.swr()
 		}
 	}, 
-	// components : {
-	// 	deleteModal
-	// }, 
-	// computed : {
-	// 	...mapGetters(['getDeleteModalObj'])
-	// },
-	// watch : {
-	// 	getDeleteModalObj(obj){
-	// 		if(obj.isDeleted){
-	// 			this.tags.splice(obj.deletingIndex,1)
-	// 		}
-	// 	}
-	// }
+	 components : {
+		deleteModal
+	}, 
+	computed : {
+		...mapGetters(['getDeleteModalObj'])
+	},
+	watch : {
+		getDeleteModalObj(obj){
+			if(obj.isDeleted){
+				this.tags.splice(obj.deletingIndex,1)
+			}
+		}
+	}
 	
 	
 }
