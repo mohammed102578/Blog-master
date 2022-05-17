@@ -25,8 +25,8 @@ class Admincontroller extends Controller
     //validate
     $this->validate($request,[
         'tagName'=>'required',
-        'tagName'=>'min:3',
-        'tagName'=>'max:10',
+        'tagName'=>'min:2',
+        'tagName'=>'max:30',
 
     ]);
 
@@ -42,8 +42,8 @@ public function editTag(Request $request){
     $this->validate($request,[
         'tagName'=>'required',
         'id'=>'required',
-        'tagName'=>'min:3',
-        'tagName'=>'max:10',
+        'tagName'=>'min:2',
+        'tagName'=>'max:30',
     ]);
 
    Tag::where('id',$request->id)->update(['tagName'=>$request->tagName]);
@@ -118,7 +118,7 @@ public function editTag(Request $request){
         $this->validate($request,[
             'categoryName'=>'required',
             'categoryName'=>'min:2',
-            'categoryName'=>'max:10',
+            'categoryName'=>'max:30',
             'iconImage'=>'required'
         ]);
     
@@ -156,7 +156,7 @@ public function editCategory(Request $request){
     $this->validate($request,[
         'categoryName'=>'required',
         'categoryName'=>'min:2',
-        'categoryName'=>'max:10',
+        'categoryName'=>'max:30',
         'iconImage'=>'required',
         'id'=>'required'
     ]);

@@ -131,7 +131,7 @@
 						<span>Delete confirmation</span>
 					</p>
 					<div style="text-align:center">
-						<p>Are you sure you want to delete tag?.</p>
+						<p>Are you sure to Delete category?.</p>
 						
 					</div>
 					<div slot="footer">

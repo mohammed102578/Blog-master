@@ -5,6 +5,7 @@
         :value="getDeleteModalObj.showDeleteModal"
         :mask-closable="false"
 		:closable="false"
+        
 
          width="360">
             <p slot="header" style="color:#f60;text-align:center">
@@ -38,15 +39,15 @@ export default {
 			const res = await this.callApi('post', this.getDeleteModalObj.deleteUrl, this.getDeleteModalObj.data)
 			if(res.status===200){
                 this.s(this.getDeleteModalObj.successMsg)
-                this.$store.commit('setDeleteModal', true)
+                this.$store.commit('setDeleteModal',true)
 			}else{
                 this.swr()
-                this.$store.commit('setDeleteModal', false)
+                this.$store.commit('setDeleteModal',false)
             }
             this.isDeleing = false
 		},
         closeModal(){
-            this.$store.commit('setDeleteModal', false)
+            this.$store.commit('setDeleteModal',false)
         }
     },
 

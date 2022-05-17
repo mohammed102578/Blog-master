@@ -2,7 +2,6 @@ import Vue from 'vue/dist/vue';
 import Vuex from 'vuex';
  Vue.use(Vuex);
  
- 
  export default new Vuex.Store({
      state : {
          deleteModalObj : {
@@ -11,6 +10,7 @@ import Vuex from 'vuex';
              data : null,
              deletingIndex: -1,
              isDeleted : false,
+             msg:''
  
          },
         //  user: false,
@@ -42,9 +42,11 @@ import Vuex from 'vuex';
                  data : null,
                  deletingIndex: -1,
                  isDeleted : data,
+                 msg:''
              }
              state.deleteModalObj = deleteModalObj
          },
+         //befor delete
          setDeletingModalObj(state, data){
              state.deleteModalObj = data
          },

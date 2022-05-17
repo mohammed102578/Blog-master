@@ -20,14 +20,14 @@
 
 
 								<!-- ITEMS -->
-							<tr v-for="(tag, i) in tags" :key="i" v-if="tags.length">
+							<tr v-for="(tag, index) in tags" :key="index" v-if="tags.length">
 								<td>{{tag.id}}</td>
 								<td class="_table_name">{{tag.tagName}}</td>
 								<td>{{tag.created_at}}</td>
 								<td>
-									<p>mohammed</p>
-									<Button type="info" size="small" @click="showEditModal(tag, i)" >Edit</Button>
-									<Button type="error" size="small" @click="showDeletingModal(tag, i)"  :loading="tag.isDeleting" >Delete</Button>
+									
+									<Button type="info" size="small" @click="showEditModal(tag, index)" >Edit</Button>
+									<Button type="error" size="small" @click="showDeletingModal(tag, index)"  :loading="tag.isDeleting" >Delete</Button>
 									
 								</td>
 							</tr>
@@ -153,31 +153,20 @@ export default {
 			this.editModal = true
 			this.index = index
 		}, 
-		async deleteTag(){
-			this.isDeleting = true
-			const res = await this.callApi('post', 'app/delete_tag', this.deleteItem)
-			if(res.status===200){
-				this.tags.splice(this.deletingIndex,1)
-				this.s('Tag has been deleted successfully!')
-			}else{
-				this.swr()
-			}
-			this.isDeleting = false
-			this.showDeleteModal = false
-		}, 
-		showDeletingModal(tag, index){
-			let obj = {
-				id : tag.id, 
-				tagName : tag.tagName
-			}
-			
-
-		this.deleteItem = obj
-	
-		this.showDeleteModal = true	
 		
-		this.deletingIndex=index  
-
+		showDeletingModal(tag, index){
+			const deleteModalObj  =  {
+				showDeleteModal: true, 
+				deleteUrl : 'app/delete_tag', 
+				data : tag, 
+				deletingIndex:index, 
+				isDeleted : false ,
+				msg:'Are Yue Suer To Delete This Tag'
+			}
+			this.$store.commit('setDeletingModalObj', deleteModalObj)
+			console.log('delete method called')
+             
+		
 		}
 	}, 
 	async created(){
@@ -195,8 +184,12 @@ export default {
 		...mapGetters(['getDeleteModalObj'])
 	},
 	watch : {
+
+		
 		getDeleteModalObj(obj){
+		console.log(obj)
 			if(obj.isDeleted){
+				console.log(obj.deletingIndex)
 				this.tags.splice(obj.deletingIndex,1)
 			}
 		}
