@@ -14,10 +14,10 @@ class Admincontroller extends Controller
 {
 
 
-    // public function index(Request $request)
-    // {
+    public function index(Request $request)
+    {
 
-        //return $request->path();
+     return $request->path();
         // first check if you are loggedin and admin user ...
         //return Auth::check();
 
@@ -39,7 +39,7 @@ class Admincontroller extends Controller
         // }
 
        // return $this->checkForPermission($user, $request);
-    //}
+    }
 
     // public function checkForPermission($user, $request)
     // {

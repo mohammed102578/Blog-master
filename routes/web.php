@@ -53,12 +53,17 @@ Route::post('/create_user', 'App\Http\Controllers\Admincontroller@createUser');
     Route::get('/get_users', 'App\Http\Controllers\Admincontroller@getUsers');
     Route::post('/edit_user', 'App\Http\Controllers\Admincontroller@editUser');
     Route::post('/admin_login', 'App\Http\Controllers\Admincontroller@adminLogin');
+//
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/logout', 'App\Http\Controllers\Admincontroller@logout');
+Route::get('/', 'App\Http\Controllers\Admincontroller@index');
+Route::any('{slug}', 'App\Http\Controllers\Admincontroller@index')->where('slug','([A-z\d\-\/_.]+)'); 
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
-Route::any('{slug}',function(){
-    return view('welcome');
-});
+// Route::any('{slug}',function(){
+//     return view('welcome');
+// });
