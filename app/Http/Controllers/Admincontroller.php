@@ -4,10 +4,73 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
+//use App\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class Admincontroller extends Controller
 {
+
+
+    // public function index(Request $request)
+    // {
+
+        //return $request->path();
+        // first check if you are loggedin and admin user ...
+        //return Auth::check();
+
+        // if (!Auth::check() && $request->path() != 'login') {
+        //     return redirect('/login');
+        // }
+
+        // if (!Auth::check() && $request->path() == 'login') {
+
+        //     return view('welcome');
+        // }
+        // // you are already logged in... so check for if you are an admin user..
+        // $user = Auth::user();
+        // if ($user->userType == 'User') {
+        //     return redirect('/login');
+        // }
+        // if ($request->path() == 'login') {
+        //     return redirect('/');
+        // }
+
+       // return $this->checkForPermission($user, $request);
+    //}
+
+    // public function checkForPermission($user, $request)
+    // {
+    //     $permission = json_decode($user->role->permission);
+    //     $hasPermission = false;
+    //     if (!$permission) {
+    //         return view('welcome');
+    //     }
+
+    //     foreach ($permission as $p) {
+    //         if ($p->name == $request->path()) {
+    //             if ($p->read) {
+    //                 $hasPermission = true;
+    //             }
+    //         }
+    //     }
+    //     if ($hasPermission) {
+    //         return view('welcome');
+    //     }
+
+    //     return view('welcome');
+    //     return view('notfound');
+    // }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+
+    
 
 
 
@@ -172,5 +235,81 @@ public function editCategory(Request $request){
     }
 
 
+
+
+    //admin users 
+    public function createUser(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'fullName' => 'required',
+            'email' => 'bail|required|email|unique:users',
+            'password' => 'bail|required|min:6',
+            'role_id' => 'required',
+        ]);
+        $password = bcrypt($request->password);
+        $user = User::create([
+            'fullName' => $request->fullName,
+            'email' => $request->email,
+            'password' => $password,
+            'role_id' => $request->role_id,
+        ]);
+        return $user;
+    }
+    public function editUser(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'fullName' => 'required',
+            'email' => "bail|required|email|unique:users,email,$request->id",
+            'password' => 'min:6',
+           
+        ]);
+        $data = [
+            'fullName' => $request->fullName,
+            'email' => $request->email,
+            'userType' => $request->userType,
+        ];
+        if ($request->password) {
+            $password = bcrypt($request->password);
+            $data['password'] = $password;
+        }
+        $user = User::where('id', $request->id)->update($data);
+        return $user;
+    }
+
+    public function getUsers()
+    {
+        return User::get();
+    }
+
+
+    public function adminLogin(Request $request)
+    {
+
+        // // validate request
+        $this->validate($request, [
+            'email' => 'bail|required|email',
+            'password' => 'bail|required|min:6',
+        ]);
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $user = Auth::user();
+            // if ($user->role->isAdmin == 0) {
+            //     Auth::logout();
+            //     return response()->json([
+            //         'msg' => 'Incorrect login details',
+            //     ], 401);
+            // }
+           
+            return response()->json([
+                'msg' => 'You are logged in',
+                'user' => $user,
+            ]);
+        } else {
+            return response()->json([
+                'msg' => 'Incorrect login details',
+            ], 401);
+        }
+    }
 
 }//end class admin

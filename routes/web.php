@@ -16,37 +16,43 @@ use Illuminate\Support\Facades\Route;
 */
 
 //start routes of tags
-Route::get('/app/get_tags', 'App\Http\Controllers\Admincontroller@getTag');
+Route::get('/get_tags', 'App\Http\Controllers\Admincontroller@getTag');
 
 
-Route::post('app/create_tag', 'App\Http\Controllers\Admincontroller@addTag');
+Route::post('/create_tag', 'App\Http\Controllers\Admincontroller@addTag');
 
 
-Route::post('/app/edit_tag', 'App\Http\Controllers\Admincontroller@editTag');
+Route::post('/edit_tag', 'App\Http\Controllers\Admincontroller@editTag');
 
 
-Route::post('/app/delete_tag', 'App\Http\Controllers\Admincontroller@deleteTag');
+Route::post('/delete_tag', 'App\Http\Controllers\Admincontroller@deleteTag');
 //end route of the tags
 
 
 //start routes of the categories
 
-Route::get('/app/get_categories', 'App\Http\Controllers\Admincontroller@getCategory');
+Route::get('/get_categories', 'App\Http\Controllers\Admincontroller@getCategory');
 
-Route::post('app/upload', 'App\Http\Controllers\Admincontroller@upload');
+Route::post('upload', 'App\Http\Controllers\Admincontroller@upload');
 
-Route::post('app/delete_image', 'App\Http\Controllers\Admincontroller@deleteImage');
+Route::post('delete_image', 'App\Http\Controllers\Admincontroller@deleteImage');
 
-Route::post('app/create_category', 'App\Http\Controllers\Admincontroller@addCategory');
+Route::post('create_category', 'App\Http\Controllers\Admincontroller@addCategory');
 
-Route::post('/app/delete_category', 'App\Http\Controllers\Admincontroller@deleteCategory');
+Route::post('/delete_category', 'App\Http\Controllers\Admincontroller@deleteCategory');
 
 
-Route::post('/app/edit_category', 'App\Http\Controllers\Admincontroller@editCategory');
+Route::post('/edit_category', 'App\Http\Controllers\Admincontroller@editCategory');
 
 
 //end routes of the categories
 
+
+//admin
+Route::post('/create_user', 'App\Http\Controllers\Admincontroller@createUser');
+    Route::get('/get_users', 'App\Http\Controllers\Admincontroller@getUsers');
+    Route::post('/edit_user', 'App\Http\Controllers\Admincontroller@editUser');
+    Route::post('/admin_login', 'App\Http\Controllers\Admincontroller@adminLogin');
 
 Route::get('/', function () {
     return view('welcome');

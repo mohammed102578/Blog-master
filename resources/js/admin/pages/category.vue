@@ -319,7 +319,7 @@ export default {
 	}, 
 	async created(){
 		 this.token = window.Laravel.csrfToken;
-		const res = await this.callApi('get', 'app/get_categories')
+		const res = await this.callApi('get', 'get_categories')
 		if(res.status==200){
 			this.categories = res.data
 		}else{
