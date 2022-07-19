@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Middleware\AdminCheck;
 use App\Http\Controllers\Controllers;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::middleware([AdminCheck::class])->group(function(){
 //start routes of tags
 Route::get('/get_tags', 'App\Http\Controllers\Admincontroller@getTag');
 
@@ -52,18 +52,19 @@ Route::post('/edit_category', 'App\Http\Controllers\Admincontroller@editCategory
 Route::post('/create_user', 'App\Http\Controllers\Admincontroller@createUser');
     Route::get('/get_users', 'App\Http\Controllers\Admincontroller@getUsers');
     Route::post('/edit_user', 'App\Http\Controllers\Admincontroller@editUser');
-    Route::post('/admin_login', 'App\Http\Controllers\Admincontroller@adminLogin');
 //
+});
+Route::post('/admin_login', 'App\Http\Controllers\Admincontroller@adminLogin');
 
-Route::get('/logout', 'App\Http\Controllers\Admincontroller@logout');
+ Route::get('/logout', 'App\Http\Controllers\Admincontroller@logout');
 Route::get('/', 'App\Http\Controllers\Admincontroller@index');
-Route::any('{slug}', 'App\Http\Controllers\Admincontroller@index')->where('slug','([A-z\d\-\/_.]+)'); 
+//Route::any('{slug}', 'App\Http\Controllers\Admincontroller@index')->where('slug','([A-z\d\/_.]+)?'); 
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
 
-// Route::any('{slug}',function(){
-//     return view('welcome');
-// });
+Route::any('{slug}',function(){
+    return view('welcome');
+});

@@ -13,7 +13,7 @@ import Vuex from 'vuex';
              msg:''
  
          },
-        //  user: false,
+          user: false,
         //  userPermission: null
      },
      getters: {
@@ -50,9 +50,9 @@ import Vuex from 'vuex';
          setDeletingModalObj(state, data){
              state.deleteModalObj = data
          },
-        //  setUpdateUser(state, data){
-        //      state.user = data
-        //  },
+         setUpdateUser(state, data){
+             state.user = data
+         },
         //  setUserPermission(state, data){
         //      state.userPermission = data
         //  },

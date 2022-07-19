@@ -3582,17 +3582,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   // props: ['user', 'permission'],
+  props: ['user'],
   data: function data() {
     return {
       isLoggedIn: false
     };
-  } // created(){
-  //    this.$store.commit('setUpdateUser', this.user)
-  //    this.$store.commit('setUserPermission', this.permission)
-  // }
-
+  },
+  created: function created() {
+    this.$store.commit('setUpdateUser', this.user); //    this.$store.commit('setUserPermission', this.permission)
+  }
 });
 
 /***/ }),
@@ -3807,8 +3808,8 @@ vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default().use(vuex__WEBPACK_IMPORTED_M
       deletingIndex: -1,
       isDeleted: false,
       msg: ''
-    } //  user: false,
-    //  userPermission: null
+    },
+    user: false //  userPermission: null
 
   },
   getters: {
@@ -3834,10 +3835,10 @@ vue_dist_vue__WEBPACK_IMPORTED_MODULE_1___default().use(vuex__WEBPACK_IMPORTED_M
     //befor delete
     setDeletingModalObj: function setDeletingModalObj(state, data) {
       state.deleteModalObj = data;
-    } //  setUpdateUser(state, data){
-    //      state.user = data
-    //  },
-    //  setUserPermission(state, data){
+    },
+    setUpdateUser: function setUpdateUser(state, data) {
+      state.user = data;
+    } //  setUserPermission(state, data){
     //      state.userPermission = data
     //  },
 
@@ -70614,7 +70615,7 @@ var render = function () {
   return _c(
     "div",
     [
-      _vm.isLoggedIn
+      _vm.$store.state.user
         ? _c("div", [
             _c("div", { staticClass: "_1side_menu" }, [
               _vm._m(0),

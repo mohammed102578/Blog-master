@@ -17,26 +17,28 @@ class Admincontroller extends Controller
     public function index(Request $request)
     {
 
-     return $request->path();
+     //return $request->path().'<br>'.Auth::check();
         // first check if you are loggedin and admin user ...
         //return Auth::check();
 
-        // if (!Auth::check() && $request->path() != 'login') {
-        //     return redirect('/login');
-        // }
+        if (!Auth::check() && $request->path() != 'login') {
+            return redirect('/login');
+        }
+        if (Auth::check()&&$request->path() == 'login') {
+            return redirect('/');
+        }
 
-        // if (!Auth::check() && $request->path() == 'login') {
 
-        //     return view('welcome');
-        // }
-        // // you are already logged in... so check for if you are an admin user..
-        // $user = Auth::user();
-        // if ($user->userType == 'User') {
-        //     return redirect('/login');
-        // }
-        // if ($request->path() == 'login') {
-        //     return redirect('/');
-        // }
+        if (Auth::check()) {
+
+            return view('welcome');
+        }
+    //     // // you are already logged in... so check for if you are an admin user..
+     $user = Auth::User();
+        if (Auth::check()&&$user->userType == 'user') {
+            return redirect('/login');
+        }
+       
 
        // return $this->checkForPermission($user, $request);
     }

@@ -16,7 +16,7 @@ class AdminCheck
      */
     public function handle($request, Closure $next)
     {
-        if($request->path()=='app/admin_login'){
+        if($request->path()=='admin_login'){
             return $next($request);
         }
         if(!Auth::check()){
@@ -26,11 +26,11 @@ class AdminCheck
             ], 403);
         }
         $user = Auth::user();
-        if($user->role->isAdmin==0){
-            return response()->json([
-                'msg' => 'You are not allowed to access this route... ',
-            ], 403);
-        }
+        // if($user->role->isAdmin==0){
+        //     return response()->json([
+        //         'msg' => 'You are not allowed to access this route... ',
+        //     ], 403);
+        // }
         
         
         return $next($request);

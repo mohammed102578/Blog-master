@@ -31,8 +31,12 @@
     </head>
     <body class="antialiased">
        <div id="app">
+@if(Auth::check())
+<mainapp :user="{{Auth::user()}}"> </mainapp>
+@else
+<mainapp :user="false"> </mainapp>
+@endif
 
-<mainapp> </mainapp>
 
        </div>
     </body>

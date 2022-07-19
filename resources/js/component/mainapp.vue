@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div v-if="isLoggedIn">
+      <div v-if="$store.state.user">
       <!--========== ADMIN SIDE MENU one ========-->
       <div class="_1side_menu" >
         <div class="_1side_menu_logo">
@@ -55,17 +55,20 @@
     	<router-view/>
     </div>
 </template>
+ 
 <script>
 export default {
    // props: ['user', 'permission'],
+   props: ['user'],
     data(){
        return {
           isLoggedIn : false,
        }
     },
-    // created(){
-    //    this.$store.commit('setUpdateUser', this.user)
+     created(){
+     
+      this.$store.commit('setUpdateUser', this.user)
     //    this.$store.commit('setUserPermission', this.permission)
-    // }
+    }
 }
 </script>
