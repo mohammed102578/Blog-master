@@ -106,7 +106,7 @@ export default {
 	methods : {
 		async addTag(){
 			if(this.data.tagName.trim()=='') return this.e('Tag name is required')
-			const res = await this.callApi('post', 'app/create_tag', this.data)
+			const res = await this.callApi('post', '/create_tag', this.data)
 			if(res.status===201){
 				this.tags.unshift(res.data)
 				this.s('Tag has been added successfully!')

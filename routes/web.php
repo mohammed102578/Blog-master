@@ -48,6 +48,22 @@ Route::post('/edit_category', 'App\Http\Controllers\Admincontroller@editCategory
 //end routes of the categories
 
 
+//start routes of the role
+
+Route::get('/get_roles', 'App\Http\Controllers\Admincontroller@getRoles');
+
+Route::post('/create_role', 'App\Http\Controllers\Admincontroller@addRole');
+
+Route::post('/delete_role', 'App\Http\Controllers\Admincontroller@deleteRole');
+
+Route::post('/assign_roles', 'App\Http\Controllers\Admincontroller@assignRole');
+
+Route::post('/edit_role', 'App\Http\Controllers\Admincontroller@editRole');
+
+
+//end routes of the role
+
+
 //admin
 Route::post('/create_user', 'App\Http\Controllers\Admincontroller@createUser');
     Route::get('/get_users', 'App\Http\Controllers\Admincontroller@getUsers');

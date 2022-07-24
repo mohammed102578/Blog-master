@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
-//use App\Role;
+use  App\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -284,7 +284,63 @@ public function editCategory(Request $request){
     {
         return User::get();
     }
+// start role
 
+public function addRole(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'roleName' => 'required',
+        ]);
+        return Role::create([
+            'roleName' => $request->roleName,
+        ]);
+    }
+    public function editRole(Request $request)
+    {
+        // validate request
+        $this->validate($request, [
+            'roleName' => 'required',
+        ]);
+        return Role::where('id', $request->id)->update([
+            'roleName' => $request->roleName,
+        ]);
+    }
+    public function getRoles()
+    {
+        return Role::all();
+    }
+
+    //assign role
+    public function assignRole(Request $request)
+    {
+        $this->validate($request, [
+            'permission' => 'required',
+            'id' => 'required',
+        ]);
+        
+        return Role::where('id', $request->id)->update([
+            'permission' => $request->permission,
+        ]);
+    }
+
+    //delet role
+public function deleteRole(Request $request)
+{
+
+ // validate request
+ $this->validate($request, [
+    'id'=>'required'
+]);
+
+
+    return Role::where('id', $request->id)->delete();
+
+}
+
+
+
+//end role
 
     public function adminLogin(Request $request)
     {
@@ -296,12 +352,13 @@ public function editCategory(Request $request){
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            // if ($user->role->isAdmin == 0) {
-            //     Auth::logout();
-            //     return response()->json([
-            //         'msg' => 'Incorrect login details',
-            //     ], 401);
-            // }
+            
+            if ($user->role->isAdmin == 0) {
+                Auth::logout();
+                return response()->json([
+                    'msg' => 'Incorrect login details',
+                ], 401);
+            }
            
             return response()->json([
                 'msg' => 'You are logged in',

@@ -59,11 +59,8 @@
                     </div>
                     <div class="space">
                         <Select v-model="data.role_id"  placeholder="Select admin type">
-                            
-				
-							<!--<Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>-->
-                             <Option value="Admin" >Admin</Option>
-							<Option value="Editor" >Editor</Option> 
+                            <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
+                            <!-- <Option value="Editor" >Editor</Option> -->
                         </Select>
                     </div>
 					
@@ -146,7 +143,7 @@ export default {
 			addModal : false, 
 			editModal : false, 
 			isAdding : false, 
-			users : [], 
+			users : [],
 			editData : {
 				userName: ''
 			}, 
@@ -169,12 +166,15 @@ export default {
 			
             if(!this.data.role_id) return this.e('User type  is required')
             
-			const res = await this.callApi('post', 'app/create_user', this.data)
+			const res = await this.callApi('post', '/create_user', this.data)
 			if(res.status===201){
 				this.users.unshift(res.data)
 				this.s('Admin user has been added successfully!')
 				this.addModal = false
-				this.data.tagName = ''
+				this.data.fullName = ''
+				this.data.email = ''
+				this.data.password = ''
+			
 			}else{
 				if(res.status==422){
                     for(let i in res.data.errors){
@@ -252,20 +252,20 @@ export default {
 	}, 
 
 	async created(){
-		// const [res, resRole] = await Promise.all([
-			const res = await this.callApi('get', 'get_users')
-		// 	//this.callApi('get', 'app/get_roles')
-		// ])
+	 const [res, resRole] = await Promise.all([
+			 this.callApi('get', 'get_users'),
+		    this.callApi('get', 'get_roles')
+	   ]);
 		if(res.status==200){
 			this.users = res.data
 		}else{
 			this.swr()
 		}
-		// if(resRole.status==200){
-		// 	this.roles = resRole.data
-		// }else{
-		// 	this.swr()
-		// }
+		if(resRole.status==200){
+			this.roles = resRole.data
+		}else{
+			this.swr()
+		}
 	}, 
 	components : {
 		deleteModal

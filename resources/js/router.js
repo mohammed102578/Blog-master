@@ -1,13 +1,11 @@
-
 import Vue from 'vue/dist/vue';
-
 import  VueRouter from 'vue-router'; 
-
 import home from './component/pages/home';
 import login from './admin/pages/login';
 import tag from './admin/pages/tag';
 import category from './admin/pages/category';
-import tr from './admin/pages/try';
+import role from './admin/pages/role';
+import assignRole from './admin/pages/assignRole';
 import adminusers from './admin/pages/adminusers'
 
 
@@ -18,6 +16,7 @@ const routes = [
    {
     path:"/",
     component : home,
+    name : 'home'
     },
 
 
@@ -26,19 +25,22 @@ const routes = [
 {
     path:"/login",
     component : login,
+    name : 'login'
     },
 
     {
-        path:"/try",
-        component : tr,
+        path:"/role",
+        component : role,
+        name : 'role'
         },
     
     
     // login
     
     {
-        path:"/login",
-        component : login,
+        path:"/assignRole",
+        component : assignRole,
+        name : 'assignRole'
         },
     
 
@@ -55,6 +57,7 @@ const routes = [
 {
     path:"/tag",
     component : tag,
+    name : 'tag'
     },
 
 
@@ -63,6 +66,7 @@ const routes = [
 {
     path:"/category",
     component : category,
+    name : 'category'
     },
 
 ];
